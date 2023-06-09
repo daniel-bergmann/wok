@@ -24,7 +24,10 @@ export default async function RecipePage({ params }: any) {
   return (
     <div>
       <h1>{details.title}</h1>
+      <p>cuisines: {details.cuisines}</p>
+      <p>{details.diets}</p>
       <Image alt={details.title} width={100} height={100} src={details.image} />
+      <p>Time to cook {details.readyInMinutes}</p>
       {ingredients.ingredients.map((ingredient: any) => {
         return (
           <div>
@@ -35,6 +38,10 @@ export default async function RecipePage({ params }: any) {
           </div>
         )
       })}
+      {/* dangerously */}
+      <div dangerouslySetInnerHTML={{ __html: details.instructions }} />
+      <h4> Wines to pair {details.winePairing.pairedWines}</h4>
+      <p>{details.winePairing.pairingText}</p>
     </div>
   )
 }
