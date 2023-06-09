@@ -13,7 +13,7 @@ const Search = () => {
   const fetchData = () => {
     // Perform the fetch request with the search query
     // Example:
-    fetch(`${process.env.NEXT_PUBLIC_API}${searchQuery}`)
+    fetch(`${process.env.NEXT_PUBLIC_COMPLEX}${searchQuery}`)
       .then((response) => response.json())
       .then((data) => {
         // Process the fetched data
