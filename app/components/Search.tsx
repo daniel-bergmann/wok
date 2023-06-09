@@ -1,12 +1,13 @@
 "use client"
 import Image from "next/image"
+import Link from "next/link"
 import React, { useState } from "react"
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [results, setResults] = useState({ results: [] })
 
-  const handleKeyPress = (event: any) => {
+  const handleKeyPress = (event: KeyboardEvent) => {
     if (event.key === "Enter") {
       fetchData()
     }
@@ -14,7 +15,6 @@ const Search = () => {
 
   const fetchData = () => {
     // Perform the fetch request with the search query
-    // Example:
     fetch(
       `${process.env.NEXT_PUBLIC_RECIPE}complexSearch${process.env.NEXT_PUBLIC_KEY}&query=${searchQuery}`
     )
@@ -41,7 +41,7 @@ const Search = () => {
       <button onClick={fetchData}>Search</button>
 
       {results.results.map((recipe: any) => (
-        <div key={recipe.id}>
+        <Link href={`/recipes/${recipe.id}`} key={recipe.id}>
           <h2>{recipe.title}</h2>
           <Image
             alt={recipe.title}
@@ -49,7 +49,7 @@ const Search = () => {
             height={100}
             src={recipe.image}
           />
-        </div>
+        </Link>
       ))}
     </div>
   )
