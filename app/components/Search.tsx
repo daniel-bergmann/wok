@@ -7,7 +7,7 @@ const Search = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [results, setResults] = useState({ results: [] })
 
-  const handleKeyPress = (event: KeyboardEvent) => {
+  const handleKeyPress = (event: any) => {
     if (event.key === "Enter") {
       fetchData()
     }
