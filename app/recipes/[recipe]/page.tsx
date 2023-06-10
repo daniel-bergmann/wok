@@ -2,6 +2,7 @@ import React from "react"
 import Image from "next/image"
 import { MdOutlineRamenDining } from "react-icons/md"
 import { RxLapTimer } from "react-icons/rx"
+import { TbGrill } from "react-icons/tb"
 
 async function getRecipeDetails(id: number) {
   const response = await fetch(
@@ -22,6 +23,7 @@ async function getIngredients(id: number) {
 export default async function RecipePage({ params }: any) {
   const ingredients = await getIngredients(params.recipe)
   const details = await getRecipeDetails(params.recipe)
+  console.log(details)
   return (
     <section className="recipe-container">
       <div className="row head">
@@ -36,17 +38,14 @@ export default async function RecipePage({ params }: any) {
       <div className="row time">
         <div>
           <RxLapTimer />
-          <p>{details.readyInMinutes} min</p>
+          <p>{details.readyInMinutes} Min</p>
         </div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto
-          accusantium repellat hic.
-        </p>
+        <p>{details.servings} Servings</p>
       </div>
 
       <div className="row ingredients">
         <div className="heading">
-          <h3>ingredients</h3>
+          <p>Ingredients</p>
           <MdOutlineRamenDining />
         </div>
         <div className="ingredient-list">
@@ -54,18 +53,24 @@ export default async function RecipePage({ params }: any) {
             return (
               <>
                 <p>
-                  {ingredient.amount.metric.value}
-                  {ingredient.amount.metric.unit} ◌ {ingredient.name}
+                  {ingredient.amount.metric.value}{" "}
+                  {ingredient.amount.metric.unit} |{" "}
+                  <strong> {ingredient.name}</strong>
                 </p>
               </>
             )
           })}
         </div>
       </div>
-      <div
-        className="row"
-        dangerouslySetInnerHTML={{ __html: details.instructions }}
-      />
+      <div className="row preperation">
+        <div className="heading">
+          <p>Method</p>
+          <TbGrill />
+        </div>
+        <div className="method">
+          <div dangerouslySetInnerHTML={{ __html: details.instructions }} />
+        </div>
+      </div>
     </section>
   )
 }
